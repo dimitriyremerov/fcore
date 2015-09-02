@@ -43,7 +43,7 @@ abstract class Storage extends \FCore\Db\Storage
 	
 	protected function detectCollectionName()
 	{
-		$storageName = get_class($this);
+		$storageName = static::class;
 		$classParts = explode('\\', $storageName);
 		$projectName = array_shift($classParts);
 		$this->dbName = strtolower($projectName);

@@ -1,6 +1,7 @@
 <?php
 namespace FCore\Textline;
 use FCore\Db\Mongo\Storage as MongoStorage;
+use FCore\Textline;
 
 class Storage extends MongoStorage
 {
@@ -37,7 +38,10 @@ class Storage extends MongoStorage
 		]);
 		foreach ($texts as $text) {
 			if (!isset($data[$text])) {
-				$this->mongo->selectDB($this->dbName)->selectCollection($this->collectionName . '_untranslated')->insert(array('_id' => $text));
+				$textline = new Textline();
+				$textline->set_id($text);
+				$this->save($textline);
+				//$this->mongo->selectDB($this->dbName)->selectCollection($this->collectionName)->insert(array('_id' => $text));
 			}
 		}
 		return $data;

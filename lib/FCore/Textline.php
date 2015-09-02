@@ -9,4 +9,9 @@ class Textline extends \FCore\DomainObject
 	{
 		return $this->translation;
 	}
+	
+	public function setTranslation($translation)
+	{
+		$this->translation = (string) $translation;
+	}
 }
