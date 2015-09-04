@@ -17,21 +17,29 @@ abstract class Controller implements \FCore\Runnable
 	 * @var bool
 	 */
 	protected $ajax = false;
-	
-	public function __construct($lang, Page\Request $pageRequest, $ajax = false)
+
+    /**
+     * @param string $lang
+     * @param Page\Request $pageRequest
+     * @param bool $ajax
+     */
+    public function __construct(string $lang, Page\Request $pageRequest, bool $ajax = false)
 	{
-		$this->lang = (string) $lang;
+		$this->lang = $lang;
 		$this->pageRequest = $pageRequest;
 		$this->context = $this->createContextObject();
-		$this->ajax = (bool) $ajax;
+		$this->ajax = $ajax;
 	}
 
-	protected function createContextObject()
+    /**
+     * @return Context
+     */
+    protected function createContextObject(): Context
 	{
 		return new Context();
 	}
 
-	final public function execute()
+	final public function execute(): self
 	{
 		try {
 			$input = $this->parseRequest($this->pageRequest);

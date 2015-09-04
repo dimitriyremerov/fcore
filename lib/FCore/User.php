@@ -1,7 +1,9 @@
 <?php
 namespace FCore;
 
-abstract class User extends \FCore\DomainObject
+use FCore\Entity;
+
+abstract class User extends Entity
 {
 	/**
 	 * @var int

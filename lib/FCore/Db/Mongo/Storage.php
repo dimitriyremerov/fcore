@@ -1,6 +1,6 @@
 <?php
 namespace FCore\Db\Mongo;
-use FCore\DomainObject;
+use FCore\Entity;
 
 abstract class Storage extends \FCore\Db\Storage
 {
@@ -54,18 +54,18 @@ abstract class Storage extends \FCore\Db\Storage
 	}
 
 	/**
-	 * @param array|DomainObject $obj
+	 * @param array|Entity $obj
 	 */
 	public function save(&$obj)
 	{
 		$links = [];
-		if ($obj instanceof DomainObject) {
+		if ($obj instanceof Entity) {
 			$arr = $obj->expose(true);
 		} else {
 			$arr = $obj;
 		}
 		$this->getCollection()->save($arr);
-		if ($obj instanceof DomainObject) {
+		if ($obj instanceof Entity) {
 			$obj->set_id($arr['_id']);
 		} else {
 			$obj['_id'] = $arr['_id'];
@@ -110,7 +110,7 @@ abstract class Storage extends \FCore\Db\Storage
 		foreach ($cursor as $obj) {
 			$id = (string) $obj['_id'];
 			if ($className) {
-				$obj[DomainObject::KEY_CLASS_NAME] = $className;
+				$obj[Entity::KEY_CLASS_NAME] = $className;
 				$obj = DomainObject\Helper::createObject($obj, $links);
 			}
 			$return[$id] = $obj;

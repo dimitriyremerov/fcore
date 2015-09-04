@@ -1,7 +1,7 @@
 <?php
 namespace FCore;
 
-class Textline extends \FCore\DomainObject
+class Textline extends \FCore\Entity
 {
 	private $translation;
 	

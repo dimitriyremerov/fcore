@@ -3,25 +3,27 @@ namespace FCore\Page;
 
 class Request
 {
-	private $get;
+    private $uri;
+    private $get;
 	private $post;
 	private $cookie;
 	private $ajax;
 
 	private $order;
 	
-	public function __construct(array $get = null, array $post = null, array $cookie = null, $ajax = null)
-	{
-		$this->get = $get;
-		$this->post = $post;
-		$this->cookie = $cookie;
-		$this->ajax = (bool) $ajax;
+	public function __construct(array $get = null, array $post = null, array $cookie = null, bool $ajax = null, string $uri = null)
+    {
+		$this->get = $get ?? $_GET;
+		$this->post = $post ?? $_POST ?? null;
+		$this->cookie = $cookie ?? $_COOKIE ?? null;
+		$this->ajax = $ajax ?? (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') == 'xmlhttprequest');
+        $this->uri = $uri ?? $_SERVER['REQUEST_URI'];
 		$this->setRequestOrder('gpc');
 	}
 	/**
 	 * @param string $order string of three symbols - g, p, c in any order
 	 */
-	public function setRequestOrder($order)
+	public function setRequestOrder(string $order)
 	{
 		$containersMap = array(
 			'g' => &$this->get,
@@ -41,21 +43,21 @@ class Request
 	 * @param string $key
 	 * @return mixed
 	 */
-	public function get($key)
+	public function get(string $key) : string
 	{
-		return is_array($this->get) && isset($this->get[$key]) ? $this->get[$key] : null;
+        return $this->get[$key] ?? '';
 	}
 	
 	/**
 	 * @param string $key
 	 * @return mixed
 	 */
-	public function post($key)
+	public function post(string $key)
 	{
 		return is_array($this->post) && isset($this->post[$key]) ? $this->post[$key] : null;
 	}
 
-	public function isAjax()
+	public function isAjax() : bool
 	{
 		return $this->ajax;
 	}
@@ -69,15 +71,15 @@ class Request
 		return is_array($this->cookie) && isset($this->cookie[$key]) ? $this->cookie[$key] : null;
 	}
 
-	public function isGet()
+	public function isGet() : bool
 	{
 		return is_array($this->get);
 	}
-	public function isPost()
+	public function isPost() : bool
 	{
 		return is_array($this->post);
 	}
-	public function isCookie()
+	public function isCookie() : bool
 	{
 		return is_array($this->cookie);
 	}
@@ -94,4 +96,12 @@ class Request
 			}
 		}
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getUri() : string
+    {
+        return $this->uri;
+    }
 }

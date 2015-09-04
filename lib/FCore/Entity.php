@@ -1,7 +1,7 @@
 <?php
 namespace FCore;
 
-class DomainObject
+class Entity
 {
 	protected $_id;
 	

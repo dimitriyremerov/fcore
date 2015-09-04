@@ -4,8 +4,13 @@ use FCore\Db\Storage as AbstractStorage;
 use FCore\Db\Mongo\Storage as MongoStorage;
 use FCore\User;
 
-abstract class Storage extends MongoStorage
+class Storage extends MongoStorage
 {
+    /**
+     * Please redeclare this in a project
+     */
+    const PROJECT_ID = 0;
+
 	const PASSWORD_SALT = 'T0JVjvLg74dJs';
 
 	const FIELD_PROJECT_ID = 'projectId';
@@ -44,7 +49,10 @@ abstract class Storage extends MongoStorage
 		));
 	}
 	
-	abstract protected function getProjectId();
+    protected function getProjectId()
+    {
+        return static::PROJECT_ID;
+    }
 	
 	
 	public function loadOne(array $query)

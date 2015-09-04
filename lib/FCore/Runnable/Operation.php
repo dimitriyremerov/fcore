@@ -1,7 +1,7 @@
 <?php
 namespace FCore\Runnable;
 
-class Operation extends \FCore\DomainObject
+class Operation extends \FCore\Entity
 {
 	/**
 	 * @var string

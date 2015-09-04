@@ -1,7 +1,7 @@
 <?php
 namespace FCore\Action;
 
-class Context extends \FCore\DomainObject
+class Context extends \FCore\Entity
 {
 	/**
 	 * @var string

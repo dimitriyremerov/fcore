@@ -1,7 +1,7 @@
 <?php
 namespace FCore;
 
-class Auth extends \FCore\DomainObject
+class Auth extends Entity
 {
 	/**
 	 * @var string
@@ -16,7 +16,7 @@ class Auth extends \FCore\DomainObject
 	 */
 	protected $oauthId;
 	
-	public function __construct($userId, $oauthProvider, $oauthId)
+	public function __construct(string $userId, string $oauthProvider, string $oauthId)
 	{
 		$this->setUserId($userId);
 		$this->setOauthProvider($oauthProvider);
@@ -35,17 +35,17 @@ class Auth extends \FCore\DomainObject
 	{
 		return $this->oauthId;
 	}
-	public function setUserId($userId)
+	public function setUserId(string $userId)
 	{
-		$this->userId = (string) $userId;
+		$this->userId = $userId;
 	}
-	public function setOauthProvider($oauthProvider)
+	public function setOauthProvider(string $oauthProvider)
 	{
-		$this->oauthProvider = (string) $oauthProvider;
+		$this->oauthProvider = $oauthProvider;
 	}
-	public function setOauthId($oauthId)
+	public function setOauthId(string $oauthId)
 	{
-		$this->oauthId = (string) $oauthId;
+		$this->oauthId = $oauthId;
 	}
 	
 }

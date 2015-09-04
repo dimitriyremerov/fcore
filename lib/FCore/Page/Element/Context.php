@@ -1,7 +1,7 @@
 <?php
 namespace FCore\Page\Element;
 
-abstract class Context extends \FCore\DomainObject
+abstract class Context extends \FCore\Entity
 {
 	/**
 	 * @todo Think about moving this out

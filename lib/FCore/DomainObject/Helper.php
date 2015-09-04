@@ -1,12 +1,12 @@
 <?php
 namespace FCore\DomainObject;
-use FCore\DomainObject;
+use FCore\Entity;
 
 class Helper
 {
 	public static function createObject(array $data, array &$links)
 	{
-		$className = $data[DomainObject::KEY_CLASS_NAME];
+		$className = $data[Entity::KEY_CLASS_NAME];
 		$reflection = new \ReflectionClass($className);
 		$instance = $reflection->newInstanceWithoutConstructor();
 		$properties = $reflection->getProperties();
